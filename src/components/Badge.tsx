@@ -4,6 +4,7 @@ type Props = {
   botContainer: HTMLDivElement | undefined;
   poweredByTextColor?: string;
   badgeBackgroundColor?: string;
+  poweredByLabel?: string;
 };
 
 const defaultTextColor = '#303235';
@@ -37,25 +38,30 @@ export const Badge = (props: Props) => {
   });
 
   return (
-    <span
-      class="w-full text-center px-[10px] pt-[6px] pb-[10px] m-auto text-[13px]"
-      style={{
-        color: props.poweredByTextColor ?? defaultTextColor,
-        'background-color': props.badgeBackgroundColor ?? '#ffffff',
-      }}
-    >
-      Powered by
-      <a
-        ref={liteBadge}
-        href={'https://flowiseai.com'}
-        target="_blank"
-        rel="noopener noreferrer"
-        class="lite-badge"
-        id="lite-badge"
-        style={{ 'font-weight': 'bold', color: props.poweredByTextColor ?? defaultTextColor }}
-      >
-        <span> Flowise</span>
-      </a>
-    </span>
+    <>
+			<h1>Some test D</h1>
+      {props.poweredByLabel && (
+        <span
+          class="w-full text-center px-[10px] pt-[6px] pb-[10px] m-auto text-[13px]"
+          style={{
+            color: props.poweredByTextColor ?? defaultTextColor,
+            'background-color': props.badgeBackgroundColor ?? '#ffffff',
+          }}
+        >
+          Powered by
+          <a
+            ref={liteBadge}
+            href={'https://flowiseai.com'}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="lite-badge"
+            id="lite-badge"
+            style={{ 'font-weight': 'bold', color: props.poweredByTextColor ?? defaultTextColor }}
+          >
+            <span>{props.poweredByLabel}</span>
+          </a>
+        </span>
+      )}
+    </>
   );
 };
