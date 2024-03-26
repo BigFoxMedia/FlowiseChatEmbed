@@ -6,6 +6,11 @@ import { FileEvent, UploadsConfig } from '@/components/Bot';
 import { ImageUploadButton } from '@/components/buttons/ImageUploadButton';
 import { RecordAudioButton } from '@/components/buttons/RecordAudioButton';
 
+type Preview = {
+  id: string;
+  url: string;
+};
+
 type Props = {
   placeholder?: string;
   backgroundColor?: string;
@@ -16,7 +21,8 @@ type Props = {
   disabled?: boolean;
   onSubmit: (value: string) => void;
   uploadsConfig?: Partial<UploadsConfig>;
-  setPreviews: Setter<unknown[]>;
+  // setPreviews: Setter<unknown[]>;
+	setPreviews: Setter<Preview[]>;
   onMicrophoneClicked: () => void;
   handleFileChange: (event: FileEvent<HTMLInputElement>) => void;
 };

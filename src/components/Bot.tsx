@@ -67,7 +67,7 @@ export type BotProps = {
   userMessage?: UserMessageTheme;
   textInput?: TextInputTheme;
   poweredByTextColor?: string;
-	poweredByLabel?: string;
+  poweredByLabel?: string;
   badgeBackgroundColor?: string;
   bubbleBackgroundColor?: string;
   bubbleTextColor?: string;
@@ -980,7 +980,12 @@ export const Bot = (botProps: BotProps & { class?: string }) => {
               />
             )}
           </div>
-          <Badge badgeBackgroundColor={props.badgeBackgroundColor} poweredByTextColor={props.poweredByTextColor} botContainer={botContainer} poweredByLabel={props.poweredByLabel} />
+          <Badge
+            badgeBackgroundColor={props.badgeBackgroundColor}
+            poweredByTextColor={props.poweredByTextColor}
+            botContainer={botContainer}
+            poweredByLabel={props.poweredByLabel}
+          />
         </div>
       </div>
       {sourcePopupOpen() && <Popup isOpen={sourcePopupOpen()} value={sourcePopupSrc()} onClose={() => setSourcePopupOpen(false)} />}
