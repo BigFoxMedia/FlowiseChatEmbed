@@ -1,5 +1,6 @@
 export type BubbleParams = {
     theme?: BubbleTheme;
+    disableNewChatButton?: boolean;
 };
 export type BubbleTheme = {
     chatWindow?: ChatWindowTheme;
@@ -28,7 +29,10 @@ export type ChatWindowTheme = {
     title?: string;
     titleAvatarSrc?: string;
     welcomeMessage?: string;
+    titleBackgroundColor?: string;
+    titleTextColor?: string;
     backgroundColor?: string;
+    chatContentBadgeBackgroundColor?: string;
     height?: number;
     width?: number;
     fontSize?: number;

@@ -42,7 +42,10 @@ export type BotProps = {
     poweredByTextColor?: string;
     poweredByLabel?: string;
     badgeBackgroundColor?: string;
+    chatContentBadgeBackgroundColor?: string;
     bubbleBackgroundColor?: string;
+    titleBackgroundColor?: string;
+    titleTextColor?: string;
     bubbleTextColor?: string;
     showTitle?: boolean;
     title?: string;
@@ -50,6 +53,7 @@ export type BotProps = {
     fontSize?: number;
     isFullPage?: boolean;
     observersConfig?: observersConfigType;
+    disableNewChatButton?: boolean;
 };
 export declare const Bot: (botProps: BotProps & {
     class?: string;

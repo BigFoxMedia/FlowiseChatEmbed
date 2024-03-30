@@ -1,0 +1,1 @@
+{"version":3,"file":"Window.d.ts","sourceRoot":"","sources":["../../../../src/features/window/components/Window.tsx"],"names":[],"mappings":"AAEA,OAAO,EAAO,QAAQ,EAAE,MAAM,kBAAkB,CAAC;AACjD,OAAO,EAAE,YAAY,EAAE,MAAM,yBAAyB,CAAC;AAMvD,MAAM,MAAM,WAAW,GAAG,QAAQ,GAAG,YAAY,CAAC;AAElD,eAAO,MAAM,MAAM,UAAW,WAAW;aAA0B,WAAW;oCAyE7E,CAAC"}

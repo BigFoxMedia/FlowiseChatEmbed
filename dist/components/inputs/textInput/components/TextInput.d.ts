@@ -17,6 +17,7 @@ type Props = {
     setPreviews: Setter<Preview[]>;
     onMicrophoneClicked: () => void;
     handleFileChange: (event: FileEvent<HTMLInputElement>) => void;
+    rows?: number;
 };
 export declare const TextInput: (props: Props) => import("solid-js").JSX.Element;
 export {};

@@ -69,7 +69,10 @@ export type BotProps = {
   poweredByTextColor?: string;
   poweredByLabel?: string;
   badgeBackgroundColor?: string;
+  chatContentBadgeBackgroundColor?: string;
   bubbleBackgroundColor?: string;
+  titleBackgroundColor?: string;
+  titleTextColor?: string;
   bubbleTextColor?: string;
   showTitle?: boolean;
   title?: string;
@@ -77,6 +80,7 @@ export type BotProps = {
   fontSize?: number;
   isFullPage?: boolean;
   observersConfig?: observersConfigType;
+  disableNewChatButton?: boolean;
 };
 
 const defaultWelcomeMessage = 'Hi there! How can I help?';
@@ -168,6 +172,8 @@ export const Bot = (botProps: BotProps & { class?: string }) => {
   let bottomSpacer: HTMLDivElement | undefined;
   let botContainer: HTMLDivElement | undefined;
 
+  console.log('Bot | botProps', botProps);
+  // const [disableNewChatButton, setDisableNewChatButton] = createSignal(false);
   const [userInput, setUserInput] = createSignal('');
   const [loading, setLoading] = createSignal(false);
   const [sourcePopupOpen, setSourcePopupOpen] = createSignal(false);
@@ -737,6 +743,8 @@ export const Bot = (botProps: BotProps & { class?: string }) => {
     }),
   );
 
+  console.log('Bot | props', props);
+
   return (
     <>
       <div
@@ -778,7 +786,8 @@ export const Bot = (botProps: BotProps & { class?: string }) => {
             class="flex flex-row items-center w-full h-[50px] absolute top-0 left-0 z-10"
             style={{
               background: props.bubbleBackgroundColor,
-              color: props.bubbleTextColor,
+              'background-color': props.titleBackgroundColor,
+              color: props.titleTextColor || props.bubbleTextColor,
               'border-top-left-radius': props.isFullPage ? '0px' : '6px',
               'border-top-right-radius': props.isFullPage ? '0px' : '6px',
             }}
@@ -793,21 +802,27 @@ export const Bot = (botProps: BotProps & { class?: string }) => {
               <span class="px-3 whitespace-pre-wrap font-semibold max-w-full">{props.title}</span>
             </Show>
             <div style={{ flex: 1 }} />
-            <DeleteButton
-              sendButtonColor={props.bubbleTextColor}
-              type="button"
-              isDisabled={messages().length === 1}
-              class="my-2 ml-2"
-              on:click={clearChat}
-            >
-              <span style={{ 'font-family': 'Poppins, sans-serif' }}>Clear</span>
-            </DeleteButton>
+            {props.disableNewChatButton ? null : (
+              <DeleteButton
+                sendButtonColor={props.bubbleTextColor}
+                type="button"
+                isDisabled={messages().length === 1}
+                class="my-2 ml-2"
+                on:click={clearChat}
+              >
+                <span style={{ 'font-family': 'Poppins, sans-serif' }}>Clear</span>
+              </DeleteButton>
+            )}
           </div>
         ) : null}
         <div class="flex flex-col w-full h-full justify-start z-0">
           <div
             ref={chatContainer}
-            class="overflow-y-scroll flex flex-col flex-grow min-w-full w-full px-3 pt-[70px] relative scrollable-container chatbot-chat-view scroll-smooth"
+            class={`overflow-y-scroll flex flex-col flex-grow min-w-full w-full px-3 mt-[${
+							props.showTitle ? '70px' : '10px'
+
+						}] relative scrollable-container chatbot-chat-view scroll-smooth`}
+            style={{ 'background-color': props.chatContentBadgeBackgroundColor }}
           >
             <For each={[...messages()]}>
               {(message, index) => {

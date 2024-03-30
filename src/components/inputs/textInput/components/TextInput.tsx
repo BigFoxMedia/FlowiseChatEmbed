@@ -22,9 +22,10 @@ type Props = {
   onSubmit: (value: string) => void;
   uploadsConfig?: Partial<UploadsConfig>;
   // setPreviews: Setter<unknown[]>;
-	setPreviews: Setter<Preview[]>;
+  setPreviews: Setter<Preview[]>;
   onMicrophoneClicked: () => void;
   handleFileChange: (event: FileEvent<HTMLInputElement>) => void;
+  rows?: number;
 };
 
 const defaultBackgroundColor = '#ffffff';
@@ -32,12 +33,15 @@ const defaultTextColor = '#303235';
 
 export const TextInput = (props: Props) => {
   const [inputValue, setInputValue] = createSignal(props.defaultValue ?? '');
-  let inputRef: HTMLInputElement | HTMLTextAreaElement | undefined;
+  // let inputRef: HTMLInputElement | HTMLTextAreaElement | undefined;
+  const [inputRef, setInputRef] = createSignal<HTMLTextAreaElement | null>(null);
+
   let fileUploadRef: HTMLInputElement | HTMLTextAreaElement | undefined;
 
   const handleInput = (inputValue: string) => setInputValue(inputValue);
 
-  const checkIfInputIsValid = () => inputValue() !== '' && inputRef?.reportValidity();
+  // const checkIfInputIsValid = () => inputValue() !== '' && inputRef?.reportValidity();
+  const checkIfInputIsValid = () => inputValue() !== '' && inputRef()?.reportValidity();
 
   const submit = () => {
     if (checkIfInputIsValid()) props.onSubmit(inputValue());
@@ -55,11 +59,17 @@ export const TextInput = (props: Props) => {
   };
 
   createEffect(() => {
-    if (!props.disabled && !isMobile() && inputRef) inputRef.focus();
+    const currentInputRef = inputRef(); // Get the current value of the ref (the DOM element)
+    if (!props.disabled && !isMobile() && currentInputRef) {
+      currentInputRef.focus();
+    }
   });
 
   onMount(() => {
-    if (!isMobile() && inputRef) inputRef.focus();
+    const currentInputRef = inputRef(); // Get the current value of the ref (the DOM element)
+    if (!isMobile() && currentInputRef) {
+      currentInputRef.focus();
+    }
   });
 
   const handleFileChange = (event: FileEvent<HTMLInputElement>) => {
@@ -88,12 +98,14 @@ export const TextInput = (props: Props) => {
         </>
       ) : null}
       <ShortTextInput
-        ref={inputRef as HTMLInputElement}
+        // ref={inputRef as HTMLInputElement}
+        ref={(el) => setInputRef(el)}
         onInput={handleInput}
         value={inputValue()}
         fontSize={props.fontSize}
         disabled={props.disabled}
         placeholder={props.placeholder ?? 'Type your question'}
+        rows={props.rows ?? 1}
       />
       {props.uploadsConfig?.isSpeechToTextEnabled ? (
         <RecordAudioButton buttonColor={props.sendButtonColor} type="button" class="m-0 start-recording-button" on:click={props.onMicrophoneClicked}>
