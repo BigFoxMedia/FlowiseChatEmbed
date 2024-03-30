@@ -818,11 +818,11 @@ export const Bot = (botProps: BotProps & { class?: string }) => {
         <div class="flex flex-col w-full h-full justify-start z-0">
           <div
             ref={chatContainer}
-            class={`overflow-y-scroll flex flex-col flex-grow min-w-full w-full px-3 mt-[${
-							props.showTitle ? '70px' : '10px'
-
-						}] relative scrollable-container chatbot-chat-view scroll-smooth`}
-            style={{ 'background-color': props.chatContentBadgeBackgroundColor }}
+            class={`overflow-y-scroll flex flex-col flex-grow min-w-full w-full px-3 relative scrollable-container chatbot-chat-view scroll-smooth`}
+            style={{
+              'background-color': props.chatContentBadgeBackgroundColor,
+              'padding-top': props.showTitle ? '70px' : '20px',
+            }}
           >
             <For each={[...messages()]}>
               {(message, index) => {
@@ -928,7 +928,7 @@ export const Bot = (botProps: BotProps & { class?: string }) => {
               </For>
             </div>
           </Show>
-          <div class="w-full px-5 pt-2 pb-1">
+          <div class="w-full px-5 pt-2 pb-1" style={{ 'background-color': props.chatContentBadgeBackgroundColor }}>
             {isRecording() ? (
               <>
                 {recordingNotSupported() ? (

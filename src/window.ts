@@ -6,13 +6,13 @@ type BotProps = {
   apiHost?: string;
   chatflowConfig?: Record<string, unknown>;
   observersConfig?: observersConfigType;
-	disableNewChatButton?: boolean;
+  disableNewChatButton?: boolean;
 };
 
 let elementUsed: Element | undefined;
 
 export const initFull = (props: BotProps & { id?: string }) => {
-	console.log("initFull | props", props)
+  console.log('initFull | props', props);
   destroy();
   const fullElement = props.id ? document.getElementById(props.id) : document.querySelector('flowise-fullchatbot');
   if (!fullElement) throw new Error('<flowise-fullchatbot> element not found.');
@@ -21,7 +21,7 @@ export const initFull = (props: BotProps & { id?: string }) => {
 };
 
 export const initWindow = (props: BotProps & { id?: string }) => {
-	console.log("initWindow | props", props)
+  console.log('initWindow | props', props);
   destroy();
   const windowElement = props.id ? document.getElementById(props.id) : document.querySelector('flowise-windowchatbot');
   if (!windowElement) throw new Error('<flowise-windowchatbot> element not found.');
@@ -30,7 +30,7 @@ export const initWindow = (props: BotProps & { id?: string }) => {
 };
 
 export const init = (props: BotProps) => {
-	console.log("init | props", props)
+  console.log('init | props', props);
   destroy();
   const element = document.createElement('flowise-chatbot');
   Object.assign(element, props);
@@ -63,8 +63,8 @@ export const parseChatbot = () => ({
 });
 
 export const injectChatbotInWindow = (bot: Chatbot) => {
-	console.log("injectChatbotInWindow | bot", bot)
-	console.log("injectChatbotInWindow | window", window)
+  console.log('injectChatbotInWindow | bot', bot);
+  console.log('injectChatbotInWindow | window', window);
   if (typeof window === 'undefined') return;
   window.Chatbot = { ...bot };
 };

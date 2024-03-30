@@ -8,6 +8,6 @@ export const registerWebComponents = () => {
   if (typeof window === 'undefined') return;
   // @ts-expect-error element incorect type
   customElement('flowise-fullchatbot', defaultBotProps, Full);
-	customElement('flowise-windowchatbot', defaultBotProps, Window);
+  customElement('flowise-windowchatbot', defaultBotProps, Window);
   customElement('flowise-chatbot', defaultBotProps, Bubble);
 };

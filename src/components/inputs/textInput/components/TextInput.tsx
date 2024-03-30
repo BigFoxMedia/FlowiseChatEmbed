@@ -1,4 +1,4 @@
-import { ShortTextInput } from './ShortTextInput';
+import { LongTextInput } from './LongTextInput';
 import { isMobile } from '@/utils/isMobileSignal';
 import { createSignal, createEffect, onMount, Setter } from 'solid-js';
 import { SendButton } from '@/components/buttons/SendButton';
@@ -48,10 +48,39 @@ export const TextInput = (props: Props) => {
     setInputValue('');
   };
 
-  const submitWhenEnter = (e: KeyboardEvent) => {
+  /* const submitWhenEnter = (e: KeyboardEvent) => {
     // Check if IME composition is in progress
     const isIMEComposition = e.isComposing || e.keyCode === 229;
     if (e.key === 'Enter' && !isIMEComposition) submit();
+  };*/
+
+  const submitWhenEnter = (e: KeyboardEvent) => {
+    const isIMEComposition = e.isComposing || e.keyCode === 229;
+    if (e.key === 'Enter' && !isIMEComposition) {
+      if (e.shiftKey || e.altKey) {
+        // Prevent the default Enter key action when combined with Shift or Alt
+        e.preventDefault();
+
+        // Add a line break at the current cursor position in the textarea
+        const currentInputRef = inputRef();
+        if (currentInputRef) {
+          const start = currentInputRef.selectionStart;
+          const end = currentInputRef.selectionEnd;
+          const text = currentInputRef.value;
+          const before = text.substring(0, start);
+          const after = text.substring(end, text.length);
+          setInputValue(before + '\n' + after);
+
+          // Move the cursor after the inserted line break
+          setTimeout(() => {
+            currentInputRef.selectionStart = currentInputRef.selectionEnd = start + 1;
+          }, 0);
+        }
+      } else {
+        // If just Enter is pressed without Shift or Alt, submit the input
+        submit();
+      }
+    }
   };
 
   const handleImageUploadClick = () => {
@@ -97,7 +126,7 @@ export const TextInput = (props: Props) => {
           <input style={{ display: 'none' }} multiple ref={fileUploadRef as HTMLInputElement} type="file" onChange={handleFileChange} />
         </>
       ) : null}
-      <ShortTextInput
+      <LongTextInput
         // ref={inputRef as HTMLInputElement}
         ref={(el) => setInputRef(el)}
         onInput={handleInput}

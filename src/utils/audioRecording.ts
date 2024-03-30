@@ -40,7 +40,7 @@ export function startAudioRecording(
       handleElapsedRecordingTime(setElapsedTime);
     })
     .catch((error) => {
-			console.log("audioRecorder | error: ", error)
+      console.log('audioRecorder | error: ', error);
       //on error
       //No Browser Support Error
       if (error.message.includes('mediaDevices API or getUserMedia method is not supported in this browser.')) {
@@ -243,9 +243,9 @@ export const audioRecorder: AudioRecorder = {
   start: function () {
     //Feature Detection
     if (!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia)) {
-			console.log("audioRecorder | navigator: ", navigator)
-			console.log("audioRecorder | navigator.mediaDevices: ", navigator?.mediaDevices)
-			console.log("audioRecorder | navigator.mediaDevices.getUserMedia: ", navigator.mediaDevices?.getUserMedia)
+      console.log('audioRecorder | navigator: ', navigator);
+      console.log('audioRecorder | navigator.mediaDevices: ', navigator?.mediaDevices);
+      console.log('audioRecorder | navigator.mediaDevices.getUserMedia: ', navigator.mediaDevices?.getUserMedia);
       //Feature is not supported in browser
       //return a custom error
       return Promise.reject(new Error('mediaDevices API or getUserMedia method is not supported in this browser.'));
